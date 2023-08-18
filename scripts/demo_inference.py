@@ -25,9 +25,9 @@ from alphapose.utils.writer import DataWriter
 
 """----------------------------- Demo options -----------------------------"""
 parser = argparse.ArgumentParser(description='AlphaPose Demo')
-parser.add_argument('--cfg', type=str, required=True,
+parser.add_argument('--cfg', type=str, required=False, default='configs/halpe_26/resnet/256x192_res50_lr1e-3_1x.yaml',
                     help='experiment configure file name')
-parser.add_argument('--checkpoint', type=str, required=True,
+parser.add_argument('--checkpoint', type=str, required=False, default='pretrained_models/halpe26_fast_res50_256x192.pth',
                     help='checkpoint file name')
 parser.add_argument('--sp', default=False, action='store_true',
                     help='Use single process for pytorch')
@@ -42,7 +42,7 @@ parser.add_argument('--list', dest='inputlist',
 parser.add_argument('--image', dest='inputimg',
                     help='image-name', default="")
 parser.add_argument('--outdir', dest='outputpath',
-                    help='output-directory', default="examples/res/")
+                    help='output-directory', default="/mnt/h/Datasets/NTU/motionbert_json/")
 parser.add_argument('--save_img', default=False, action='store_true',
                     help='save result as image')
 parser.add_argument('--vis', default=False, action='store_true',
@@ -160,6 +160,14 @@ def loop():
 
 
 if __name__ == "__main__":
+    args.inputpath = '/mnt/h/Datasets/NTU/rgb_img_single/train/' + args.inputpath
+    folder_name = args.inputpath.split('/')[-1]
+    if os.path.isfile(os.path.join(args.outputpath, folder_name, 'alphapose-results.json')):
+        print(f'File {folder_name} already exists')
+        sys.exit(0)
+    if os.path.isdir(os.path.join(args.outputpath, folder_name)) is False:
+        os.mkdir(os.path.join(args.outputpath, folder_name))
+    args.outputpath = str(os.path.join(args.outputpath, folder_name))
     mode, input_source = check_input()
 
     if not os.path.exists(args.outputpath):
