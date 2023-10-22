@@ -42,7 +42,7 @@ parser.add_argument('--list', dest='inputlist',
 parser.add_argument('--image', dest='inputimg',
                     help='image-name', default="")
 parser.add_argument('--outdir', dest='outputpath',
-                    help='output-directory', default="/mnt/h/Datasets/NTU/motionbert_json/")
+                    help='output-directory', default="/mnt/e/yzk/NTU/motionbert_json/train/")
 parser.add_argument('--save_img', default=False, action='store_true',
                     help='save result as image')
 parser.add_argument('--vis', default=False, action='store_true',
@@ -160,11 +160,8 @@ def loop():
 
 
 if __name__ == "__main__":
-    args.inputpath = '/mnt/h/Datasets/NTU/rgb_img_single/train/' + args.inputpath
-    folder_name = args.inputpath.split('/')[-1]
-    if os.path.isfile(os.path.join(args.outputpath, folder_name, 'alphapose-results.json')):
-        print(f'File {folder_name} already exists')
-        sys.exit(0)
+    folder_name = args.inputpath
+    args.inputpath = '/mnt/e/yzk/NTU/rgb_img_single/train/' + args.inputpath
     if os.path.isdir(os.path.join(args.outputpath, folder_name)) is False:
         os.mkdir(os.path.join(args.outputpath, folder_name))
     args.outputpath = str(os.path.join(args.outputpath, folder_name))
