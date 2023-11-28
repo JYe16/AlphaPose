@@ -42,7 +42,7 @@ parser.add_argument('--list', dest='inputlist',
 parser.add_argument('--image', dest='inputimg',
                     help='image-name', default="")
 parser.add_argument('--outdir', dest='outputpath',
-                    help='output-directory', default="/mnt/h/Datasets/NTU/motionbert_json/test/")
+                    help='output-directory', default="")
 parser.add_argument('--save_img', default=False, action='store_true',
                     help='save result as image')
 parser.add_argument('--vis', default=False, action='store_true',
@@ -161,14 +161,11 @@ def loop():
 
 if __name__ == "__main__":
     folder_name = args.inputpath
-    args.inputpath = '/mnt/h/Datasets/NTU/rgb_img_single/test/' + args.inputpath
-    if os.path.isdir(os.path.join(args.outputpath, folder_name)) is False:
-        os.mkdir(os.path.join(args.outputpath, folder_name))
-    args.outputpath = str(os.path.join(args.outputpath, folder_name))
+    args.inputpath = '/mnt/h/Datasets/Own/WiMesh-X/data/' + folder_name + '/img'
+    args.outputpath = '/mnt/h/Datasets/Own/WiMesh-X/data/' + folder_name + '/skl'
+    if os.path.isdir(args.outputpath) is False:
+        os.mkdir(args.outputpath)
     mode, input_source = check_input()
-
-    if not os.path.exists(args.outputpath):
-        os.makedirs(args.outputpath)
 
     # Load detection loader
     if mode == 'webcam':

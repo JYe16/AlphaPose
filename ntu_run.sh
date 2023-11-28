@@ -1,9 +1,9 @@
 conda activate alphapose
 
-for f in /mnt/e/yzk/NTU/rgb_img_single/train/*;
+for f in /mnt/h/Datasets/NTU/rgb_img_single/test/*;
 do
         name=$(basename $f)
-        if [ ! -e "/mnt/e/yzk/NTU/motionbert_json/train/$name/alphapose-results.json" ]
+        if [ ! -e "/mnt/h/Datasets/NTU/motionbert_json/test/$name/alphapose-results.json" ]
         then
                 echo Start processing file $name
                 echo 
